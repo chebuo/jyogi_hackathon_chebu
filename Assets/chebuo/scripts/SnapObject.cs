@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SnapObject : MonoBehaviour
 {
-    [SerializeField] string tagetTag;
+    string targetTag;
     [SerializeField] GameObject snapTarget;
+    DragObject dragObject;
     // Start is called before the first frame update
     void Start()
     {
-        
+        targetTag = this.gameObject.name;
+        dragObject=snapTarget.GetComponent<DragObject>();
     }
 
     // Update is called once per frame
@@ -17,13 +20,15 @@ public class SnapObject : MonoBehaviour
     {
         
     }
-    private void OnTriggerStay(Collider other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag(tag))
+        if(other.gameObject.CompareTag(targetTag))
         {
             snapTarget = other.gameObject;
-            transform.position = snapTarget.transform.position;
-            transform.rotation = snapTarget.transform.rotation;
+            snapTarget.transform.position=snapTarget.transform.position;
+            snapTarget.transform.rotation=snapTarget.transform.rotation;
+            Debug.Log("kasanatta");
+            dragObject.finished = true;
         }
     }
 }
