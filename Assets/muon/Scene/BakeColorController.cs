@@ -1,22 +1,72 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class BakeColorController : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Color baseColor;
 
+    [Header("UI設定")]
+    public Text gameOverText;
+
+    [Header("理想の焼き色")]
+    public Color idealColor;
+
+    private bool hasColorChanged = false;
+    private float lastColorChangeTime = 0f;
+    private float checkDelay = 5f;
+
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        baseColor = spriteRenderer.color; // 初期の芋の色を保存
+        baseColor = spriteRenderer.color;
+        lastColorChangeTime = Time.time;
+
+        // **ゲーム開始時は非表示**
+        if (gameOverText != null) {
+            gameOverText.enabled = false;
+        }
+    }
+
+    void Update() {
+        if (hasColorChanged && Time.time - lastColorChangeTime >= checkDelay) {
+            EndGame();
+        }
     }
 
     public void SetBakeProgress(float progress) {
-        float t = Mathf.Clamp01(progress); // 0〜1に制限
-
-        // 元の色を t に応じて暗くする（0→そのまま、1→真っ黒）
+        float t = Mathf.Clamp01(progress);
         Color newColor = baseColor * (1f - t);
-        newColor.a = baseColor.a; // 透明度は変えない
+        newColor.a = baseColor.a;
+
+        if (spriteRenderer.color != newColor) {
+            hasColorChanged = true;
+            lastColorChangeTime = Time.time;
+        }
+
         spriteRenderer.color = newColor;
-        Console.WriteLine(baseColor);
+    }
+
+    private void EndGame() {
+        int finalScore = GetBakeScore();
+        string resultMessage = finalScore >= 800 ? "成功！" : "失敗...";
+
+        if (gameOverText != null) {
+            gameOverText.text = $"ゲーム終了！最終スコア: {finalScore}\n{resultMessage}";
+            gameOverText.enabled = true;
+        }
+
+        ImoDrag imoDrag = FindObjectOfType<ImoDrag>();
+        if (imoDrag != null) {
+            imoDrag.SetGameOver();
+        }
+    }
+
+    public int GetBakeScore() {
+        Color currentColor = spriteRenderer.color;
+        float distance = Mathf.Sqrt(
+            Mathf.Pow(currentColor.r - idealColor.r, 2) +
+            Mathf.Pow(currentColor.g - idealColor.g, 2) +
+            Mathf.Pow(currentColor.b - idealColor.b, 2)
+        );
+        return Mathf.FloorToInt(Mathf.Clamp(1000 * (1f - distance), 0, 1000));
     }
 }

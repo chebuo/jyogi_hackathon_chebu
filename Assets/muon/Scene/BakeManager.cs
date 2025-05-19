@@ -15,7 +15,7 @@ public class BakeManager : MonoBehaviour {
     void Update() {
         float distance = Vector2.Distance(transform.position, fireTransform.position);
         float heatFactor = Mathf.Clamp01(1f - (distance / maxHeatDistance));
-        bakeProgress += heatFactor * heatSpeed * Time.deltaTime;
+        bakeProgress = Mathf.Clamp(bakeProgress + (heatFactor * heatSpeed * Time.deltaTime), 0f, 1f);
 
         colorController.SetBakeProgress(bakeProgress);
     }
