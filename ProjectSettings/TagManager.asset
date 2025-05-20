@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - chebuhome_0
+  - chebuhome_1
+  - chebuhome_2
   layers:
   - Default
   - TransparentFX
@@ -41,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: piece
+    uniqueID: 23404125
     locked: 0
