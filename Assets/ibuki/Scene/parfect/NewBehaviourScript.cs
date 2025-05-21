@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NewBehaviourScript : MonoBehaviour
+{
+    [SerializeField] public HitCounter hitCounter;
+    private bool isInHitZone = false;
+    private bool destroyedByKey=false;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("HitZone"))
+        {
+            isInHitZone = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("HitZone"))
+        {
+            isInHitZone = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            if (isInHitZone)
+            {
+                Debug.Log("Hit");
+                hitCounter.AddHit();
+            }
+            else
+            {
+                Debug.Log("Miss");
+            }
+
+            destroyedByKey = true;
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if(!destroyedByKey)
+        {
+            Debug.Log("Miss");
+        }
+    }
+}
+
+
