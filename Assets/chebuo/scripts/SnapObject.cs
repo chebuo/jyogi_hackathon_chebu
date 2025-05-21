@@ -7,14 +7,15 @@ public class SnapObject : MonoBehaviour
 {
     string targetTag;
     [SerializeField] GameObject snapTarget;
-    DragObject dragObject;
+    DragObject dragObject; 
     CircleCollider2D cc;
     Rigidbody2D rb;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         targetTag = this.gameObject.name;
-        dragObject=snapTarget.GetComponent<DragObject>();
+        snapTarget = GameObject.Find(this.name);
+        dragObject=snapTarget.AddComponent<DragObject>();
         cc=this.AddComponent<CircleCollider2D>();
         rb=this.AddComponent<Rigidbody2D>();
         cc.isTrigger=true;

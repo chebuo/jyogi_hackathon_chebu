@@ -6,19 +6,31 @@ using UnityEngine;
 public class DragObject : MonoBehaviour
 {
     public bool finished = false;
-    [SerializeField] GameObject Snap;
+    [SerializeField] GameObject snap;
     PolygonCollider2D pc;
     SpriteRenderer sr;
     Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
+        snap = GameObject.Find("chebuhome_matome");
+        var matomeTrans = snap.transform;
+        var children = new GameObject[matomeTrans.childCount];
+        for(int i = 0; i < children.Length; i++)
+        {
+            children[i] = matomeTrans.GetChild(i).gameObject;
+            if (children[i].name == this.name)
+            {
+                snap= children[i];
+            }
+        }
         pc=this.AddComponent<PolygonCollider2D>();
         sr = this.GetComponent<SpriteRenderer>();
         rb=this.AddComponent<Rigidbody2D>();
         pc.isTrigger = false;
         rb.gravityScale = 0;
         sr.sortingOrder = 1;
+        Debug.Log(snap);
     }
     private void OnMouseDrag()
     {
@@ -31,8 +43,8 @@ public class DragObject : MonoBehaviour
     {
         if (finished)
         {
-            this.transform.position = Snap.transform.position;
-            this.transform.rotation = Snap.transform.rotation;
+            this.transform.position = snap.transform.position;
+            this.transform.rotation = snap.transform.rotation;
         }
     }
 }
