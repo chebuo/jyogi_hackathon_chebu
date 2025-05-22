@@ -15,6 +15,6 @@ public class ScoreManager : MonoBehaviour {
     }
 
     private void UpdateScoreText() {
-        scoreText.text = "ÉXÉRÉA: " + score;
+        scoreText.text = "„Çπ„Ç≥„Ç¢: " + score;
     }
 }

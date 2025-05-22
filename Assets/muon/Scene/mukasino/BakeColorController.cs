@@ -1,26 +1,31 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // Textを使うために必要
 
 public class BakeColorController : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private Color baseColor;
 
     [Header("UI設定")]
-    public Text gameOverText;
+    public Text gameOverText; // Text型であることを確認
 
     [Header("理想の焼き色")]
     public Color idealColor;
 
     private bool hasColorChanged = false;
     private float lastColorChangeTime = 0f;
-    private float checkDelay = 5f;
+    private float checkDelay = 3f;
+
+    private GameManager gameManager; // GameManagerへの参照
 
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         baseColor = spriteRenderer.color;
         lastColorChangeTime = Time.time;
 
-        // **ゲーム開始時は非表示**
+        // GameManagerの参照を取得
+        gameManager = FindObjectOfType<GameManager>();
+
+        // ゲーム開始時は非表示
         if (gameOverText != null) {
             gameOverText.enabled = false;
         }
@@ -41,7 +46,6 @@ public class BakeColorController : MonoBehaviour {
             hasColorChanged = true;
             lastColorChangeTime = Time.time;
         }
-
         spriteRenderer.color = newColor;
     }
 
@@ -54,9 +58,8 @@ public class BakeColorController : MonoBehaviour {
             gameOverText.enabled = true;
         }
 
-        ImoDrag imoDrag = FindObjectOfType<ImoDrag>();
-        if (imoDrag != null) {
-            imoDrag.SetGameOver();
+        if (gameManager != null) {
+            gameManager.EndGame(finalScore >= 800);
         }
     }
 
