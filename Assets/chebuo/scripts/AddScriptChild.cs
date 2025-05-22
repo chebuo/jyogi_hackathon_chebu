@@ -16,6 +16,7 @@ public class AddScriptChild : MonoBehaviour
             children[i]=this.transform.GetChild(i);
             snap = children[i].AddComponent<SnapObject>();
         }
+        transform.localScale = new Vector3(2, 2, 2);
     }
 
     // Update is called once per frame

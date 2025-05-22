@@ -30,7 +30,9 @@ public class DragObject : MonoBehaviour
         pc.isTrigger = false;
         rb.gravityScale = 0;
         sr.sortingOrder = 1;
-        Debug.Log(snap);
+        float setposition = Random.Range(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x+1f,Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x-1f);
+        transform.position = new Vector3(setposition, -3, 0);
+        transform.localScale=new Vector3(2,2,2);
     }
     private void OnMouseDrag()
     {
