@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class AddScriptChild : MonoBehaviour
+{
+    bool start=false;
+    public Transform[] children;
+    SnapObject snap;
+    // Start is called before the first frame update
+    void Start()
+    {
+        if(!start)return;
+        children = new Transform[this.transform.childCount];
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            children[i]=this.transform.GetChild(i);
+            snap = children[i].AddComponent<SnapObject>();
+        }
+        transform.localScale = new Vector3(2, 2, 2);
+    }
+    public void OnClick()
+    {
+        start= true;
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
