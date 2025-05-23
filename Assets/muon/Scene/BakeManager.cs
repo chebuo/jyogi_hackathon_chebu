@@ -2,34 +2,34 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BakeManager : MonoBehaviour {
-    // BakeManager自身の情報（imoオブジェクトにアタッチされている想定）
     private SpriteRenderer spriteRenderer;
     private Color baseColor; // imoオブジェクトの初期色
 
-    // --- ここから端的なコメント ---
-    [Header("■ 焼き加減と火の設定")] // UnityのInspectorで表示されるヘッダー
-
-    [Tooltip("火のオブジェクトのTransform")] // Inspectorでの説明
-    public Transform fireTransform; // 火の場所となるオブジェクト
-
-    [Tooltip("熱がimoに影響する最大の距離")]
-    public float maxHeatDistance = 2.0f; // 熱が届く最大距離
-
+    [Header("■ 焼き加減と火の設定")]
+    [Tooltip("火のオブジェクトのTransform")]
+    public Transform fireTransform;
+    [Tooltip("熱がimoに影響する最大の最大の距離")]
+    public float maxHeatDistance = 2.0f;
     [Tooltip("焼き加減が進む速さ")]
-    public float heatSpeed = 0.5f; // 焼きの進行速度
+    public float heatSpeed = 0.5f;
 
     private float bakeProgress = 0f; // 現在の焼きの進行度（0.0～1.0）
-    // --- ここまで ---
+    
+    [Header("■ 真っ黒焦げ判定設定")]
+    [Tooltip("この焼き加減の進行度を超えると、真っ黒焦げで即ゲームオーバーになります。")]
+    [Range(0.0f, 1.0f)]
+    public float burntThreshold = 0.9f;
+    private bool isBurntTooMuch = false; // 真っ黒焦げになったかどうかのフラグ
 
-    [Header("UI設定")] // UnityのInspectorで表示されるヘッダー
-    public Text gameOverText; // ゲーム終了メッセージ表示用Text UI
-    public Color idealColor; // 理想の焼き色
+    [Header("UI設定")]
+    public Text gameOverText;
+    public Color idealColor;
 
-    private bool hasColorChanged = false; // 色が一度でも変化したか
-    private float lastColorChangeTime = 0f; // 色の最終変化時間
-    private float checkDelay = 3f; // ゲーム終了判定までの遅延時間
+    private bool hasColorChanged = false;
+    private float lastColorChangeTime = 0f;
+    private float checkDelay = 3f;
 
-    private GameManager gameManager; // ゲーム全体の管理スクリプト
+    private GameManager gameManager;
 
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -39,24 +39,39 @@ public class BakeManager : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
 
         if (gameOverText != null) {
-            gameOverText.enabled = false; // ゲーム開始時は非表示
+            gameOverText.enabled = false;
         }
 
-        if (fireTransform == null) {
+        if (fireTransform == null)
+        {
             Debug.LogError("BakeManager: '火の場所 (Fire Transform)' が設定されていません！InspectorでFireZoneをD&Dしてください。");
         }
     }
 
     void Update() {
-        if (fireTransform != null) {
+        if (gameManager != null && !gameManager.GetComponent<GameManager>().enabled)
+        {
+            return; 
+        }
+
+        if (fireTransform != null)
+        {
             float distance = Vector2.Distance(transform.position, fireTransform.position);
             float heatFactor = Mathf.Clamp01(1f - (distance / maxHeatDistance));
             bakeProgress = Mathf.Clamp(bakeProgress + (heatFactor * heatSpeed * Time.deltaTime), 0f, 1f);
 
             SetBakeProgress(bakeProgress);
-        }
 
-        if (hasColorChanged && Time.time - lastColorChangeTime >= checkDelay) {
+            if (bakeProgress >= burntThreshold && !isBurntTooMuch)
+            {
+                isBurntTooMuch = true;
+                EndGame(); // 即座にゲームオーバーを呼び出す
+            }
+        }
+        
+        // 通常のゲーム終了判定（真っ黒焦げで終了しない場合）
+        // 真っ黒焦げになったら、この条件ではEndGameを呼ばない
+        if (hasColorChanged && Time.time - lastColorChangeTime >= checkDelay && !isBurntTooMuch) {
             EndGame();
         }
     }
@@ -74,8 +89,27 @@ public class BakeManager : MonoBehaviour {
     }
 
     private void EndGame() {
+        // すでにゲームオーバー状態でないかチェック（多重呼び出し防止）
+        if (gameManager != null && !gameManager.GetComponent<GameManager>().enabled)
+        {
+            return;
+        }
+
         int finalScore = GetBakeScore();
-        string resultMessage = finalScore >= 800 ? "成功！" : "失敗...";
+        string resultMessage;
+        bool isSuccess = false; // GameManagerに渡す成否判定
+
+        if (isBurntTooMuch) // 真っ黒焦げの場合
+        {
+            resultMessage = "真っ黒焦げ！"; // 「真っ黒焦げ！」というメッセージに
+            finalScore = 0; // スコアは0にする
+            isSuccess = false; // 失敗扱い
+        }
+        else // 通常の終了判定の場合
+        {
+            isSuccess = finalScore >= 800; // スコアに基づいて成功か失敗かを判定
+            resultMessage = isSuccess ? "成功！" : "失敗...";
+        }
 
         if (gameOverText != null) {
             gameOverText.text = $"ゲーム終了！最終スコア: {finalScore}\n{resultMessage}";
@@ -83,7 +117,8 @@ public class BakeManager : MonoBehaviour {
         }
 
         if (gameManager != null) {
-            gameManager.EndGame(finalScore >= 800);
+            gameManager.EndGame(isSuccess); // GameManagerに最終的な成否を渡す
+            this.enabled = false; 
         }
     }
 
