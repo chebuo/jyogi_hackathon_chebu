@@ -13,6 +13,7 @@ public class DragObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         snap = GameObject.Find("chebuhome_matome");
         var matomeTrans = snap.transform;
         var children = new GameObject[matomeTrans.childCount];
@@ -38,7 +39,6 @@ public class DragObject : MonoBehaviour
     {
         if (finished) return;
         transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log("ugoiteru");
     }
     // Update is called once per frame
     void Update()
