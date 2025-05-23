@@ -10,6 +10,10 @@ public class HitCounter : MonoBehaviour
 
     int currentHits = 0;
 
+    void Start()
+    {
+        currentHits = 0;
+    }
 
     // ƒqƒbƒg‚µ‚½‚Æ‚«‚ÉŒÄ‚Ño‚·
     public void AddHit()
@@ -26,7 +30,7 @@ public class HitCounter : MonoBehaviour
 
     private void UpdateText()
     {
-        int test = currentHits / maxHits;
+        string test =$" {currentHits} / {maxHits}";
         hitCounterText.text = test + "‰ñ";
     }
 

@@ -10,13 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4157115359894569836}
   - component: {fileID: 2706692192375352088}
-  - component: {fileID: 7136209852409924451}
   - component: {fileID: 751464610756150443}
   - component: {fileID: 2666418000268525723}
   - component: {fileID: 2869945858705313856}
   m_Layer: 0
-  m_Name: 1_20250514161041 1
-  m_TagString: Untagged
+  m_Name: hannteisenn2
+  m_TagString: migi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,19 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7136209852409924451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8346658139372829078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00f1c8e1df135e64dacb0108a27d0b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitCounter: {fileID: 6245121655451029916, guid: 5cae2911d1f2da344b45cfefaaa7d3b7, type: 3}
 --- !u!50 &751464610756150443
 Rigidbody2D:
   serializedVersion: 4

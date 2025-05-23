@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - HitZone
+  - migi
+  - hidari
+  - ue
+  - hidarinoenn
+  - uenoenn
+  - miginoenn
   layers:
   - Default
   - TransparentFX

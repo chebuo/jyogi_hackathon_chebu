@@ -10,13 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 9073387518003542159}
   - component: {fileID: 7412247159931697265}
-  - component: {fileID: 2438138152764400785}
   - component: {fileID: 1135299732619833440}
   - component: {fileID: 8506562844513696918}
   - component: {fileID: 1052097827613057775}
   m_Layer: 0
   m_Name: hannteisenn 1
-  m_TagString: Untagged
+  m_TagString: hidari
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,19 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2438138152764400785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5118967847119201260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6c163ee53a657c49935e79a2db9c356, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitCounter: {fileID: 6245121655451029916, guid: 5cae2911d1f2da344b45cfefaaa7d3b7, type: 3}
 --- !u!60 &1135299732619833440
 PolygonCollider2D:
   m_ObjectHideFlags: 0

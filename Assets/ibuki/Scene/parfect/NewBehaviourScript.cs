@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    [SerializeField] public HitCounter hitCounter;
+    HitCounter hitCounter;
+    [SerializeField] GameObject scoretext;
+    GameObject hannteisenn2;
     private bool isInHitZone = false;
     private bool destroyedByKey=false;
 
+
+    void Start()
+    {
+        hitCounter = scoretext.GetComponent<HitCounter>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("HitZone"))
+        if (other.CompareTag("migi"))
         {
             isInHitZone = true;
         }
@@ -18,7 +26,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("HitZone"))
+        if (other.CompareTag("migi"))
         {
             isInHitZone = false;
         }
@@ -26,6 +34,8 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Update()
     {
+        hannteisenn2 = GameObject.FindWithTag("migi");
+        if (hannteisenn2 == null) return;
         if (Input.GetKeyDown(KeyCode.D))
         {
             if (isInHitZone)
@@ -39,8 +49,9 @@ public class NewBehaviourScript : MonoBehaviour
             }
 
             destroyedByKey = true;
-            Destroy(gameObject);
+            Destroy(hannteisenn2.gameObject);
         }
+        Debug.Log(hannteisenn2);
     }
 
     private void OnDestroy()

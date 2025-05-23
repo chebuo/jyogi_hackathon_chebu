@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class CTrigger : MonoBehaviour
 {
-    [SerializeField] HitCounter hitCounter;
+     HitCounter hitCounter;
+    [SerializeField] GameObject scoretext;
+    GameObject hannteisenn1;
     private bool isInHitZone = false;
     private bool destroyedByKey = false;
 
 
+    void Start()
+    {
+        hitCounter = scoretext.GetComponent<HitCounter>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("HitZone"))
+        if (other.CompareTag("hidari"))
         {
             isInHitZone = true;
         }
@@ -19,7 +26,7 @@ public class CTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("HitZone"))
+        if (other.CompareTag("hidari"))
         {
             isInHitZone = false;
         }
@@ -28,6 +35,8 @@ public class CTrigger : MonoBehaviour
 
     private void Update()
     {
+        hannteisenn1 = GameObject.FindWithTag("hidari");
+        if (hannteisenn1 == null) return;
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (isInHitZone)
@@ -41,8 +50,10 @@ public class CTrigger : MonoBehaviour
             }
 
             destroyedByKey = true;
-            Destroy(gameObject);
+            Destroy(hannteisenn1.gameObject);
         }
+        Debug.Log(hannteisenn1);
+
     }
     private void OnDestroy()
     {

@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NNNewBehaviourScript1 : MonoBehaviour
-
-
 {
-    [SerializeField] private HitCounter hitCounter;
+    HitCounter hitCounter;
+    [SerializeField] GameObject scoretext;
+    GameObject hannteisenn3;
     private bool isInHitZone = false;
     private bool destroyedByKey = false;
 
+
+    void Start()
+    {
+        hitCounter = scoretext.GetComponent<HitCounter>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("HitZone"))
+        if (other.CompareTag("ue"))
         {
             isInHitZone = true;
         }
@@ -20,7 +26,7 @@ public class NNNewBehaviourScript1 : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("HitZone"))
+        if (other.CompareTag("ue"))
         {
             isInHitZone = false;
         }
@@ -28,7 +34,9 @@ public class NNNewBehaviourScript1 : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        hannteisenn3 = GameObject.FindWithTag("ue");
+        if (hannteisenn3 == null) return;
+        if (Input.GetKeyDown(KeyCode.W))
         {
             if (isInHitZone)
             {
@@ -41,8 +49,9 @@ public class NNNewBehaviourScript1 : MonoBehaviour
             }
 
             destroyedByKey = true;
-            Destroy(gameObject);
+            Destroy(hannteisenn3.gameObject);
         }
+        Debug.Log(hannteisenn3);
     }
 
     private void OnDestroy()
