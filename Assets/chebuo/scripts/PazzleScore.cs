@@ -36,7 +36,7 @@ public class PazzleScore : MonoBehaviour
     {
         pazzlescore++;
         AllFinished = true;
-       
+        
         foreach (GameObject piece in pazzlePiece)
         {
             if (piece.GetComponent<DragObject>() == null) return;
@@ -118,9 +118,10 @@ public class PazzleScore : MonoBehaviour
             {
                 Debug.Log("スコアリスト取得失敗: " + response.errorData?.message);
             }
-            scoreaverange=allscore / scoreLength;
-            Debug.Log(scoreaverange);
         });
         yield return new WaitUntil(() => done);
+        scoreaverange = allscore / scoreLength;
+        Debug.Log(scoreaverange);
+
     }
 }

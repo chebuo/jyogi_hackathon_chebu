@@ -47,7 +47,7 @@ public class AddScriptChild : MonoBehaviour
             timertext.enabled = true;
             timer-= Time.deltaTime;
             timerint = (int)timer;
-            timertext.text = timerint.ToString();
+            timertext.text = "TIME:"+((int)timerint).ToString();
             Debug.Log(timer);
         }
         fseconds -= Time.deltaTime;
