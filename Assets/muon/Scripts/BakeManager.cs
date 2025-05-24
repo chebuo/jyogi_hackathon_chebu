@@ -27,10 +27,9 @@ public class BakeManager : MonoBehaviour {
     public Text gameOverText;
     public Color idealColor;
 
-    private bool hasColorTimerStarted = false; 
-    [Tooltip("色が変化し始めてからゲーム終了までの時間（この時間でタイマーが表示されます）")]
+    [Tooltip("火から離れてからゲーム終了までの時間（この時間でタイマーが表示されます）")]
     public float finishTimerDuration = 3f; 
-
+    
     [Header("■ 仕上げタイマー開始条件")]
     [Tooltip("この焼き加減の進行度を超えると、仕上げタイマーが開始可能な状態になります。（火から離れたら開始）")]
     [Range(0.0f, 1.0f)]
@@ -38,9 +37,9 @@ public class BakeManager : MonoBehaviour {
 
     private bool canStartFinishTimer = false;
     private bool isCurrentlyContactingFire = false; 
-    private bool wasContactingFire = false; // 前フレームの接触状態を保持する
+    private bool wasContactingFire = false;
 
-    private GameManager gameManager;
+    private GameManager_01 gameManager; // GameManager_01を参照するように変更
 
     private List<FireController> activeFires = new List<FireController>();
 
@@ -48,7 +47,7 @@ public class BakeManager : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         baseColor = spriteRenderer.color;
         
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindObjectOfType<GameManager_01>(); // GameManager_01を参照するように変更
 
         if (gameOverText != null) {
             gameOverText.enabled = false;
@@ -56,7 +55,9 @@ public class BakeManager : MonoBehaviour {
     }
 
     void Update() {
-        if (gameManager != null && !gameManager.GetComponent<GameManager>().enabled)
+        // gameManagerがnullでないか、かつenabledになっているかを確認
+        // gameManager.GetComponent<GameManager_01>().enabled; を使う場合は、gameManagerがnullでないか最初に確認
+        if (gameManager == null || !gameManager.enabled) // GameManager_01のenabledで確認
         {
             return; 
         }
@@ -64,17 +65,16 @@ public class BakeManager : MonoBehaviour {
         FindActiveFires();
         FireController closestFire = GetClosestActiveFire();
 
-        wasContactingFire = isCurrentlyContactingFire; // 現在の接触状態を次フレームのために保存
-        isCurrentlyContactingFire = false; // このフレームの接触状態を初期化
+        wasContactingFire = isCurrentlyContactingFire; 
+        isCurrentlyContactingFire = false; 
 
-        // --- 火の影響計算と接触判定 ---
         if (closestFire != null)
         {
             float distance = Vector2.Distance(transform.position, closestFire.transform.position);
             
             if (distance <= maxHeatDistance)
             {
-                isCurrentlyContactingFire = true; // 火の範囲内にいる
+                isCurrentlyContactingFire = true; 
             }
 
             float fireScaleY = closestFire.GetCurrentScale().y;
@@ -92,25 +92,20 @@ public class BakeManager : MonoBehaviour {
                 return; 
             }
         }
-        else // 火が一つも存在しない場合
+        else 
         {
             isCurrentlyContactingFire = false;
         }
-        // --- 修正ここまで ---
 
-        // --- タイマー開始/停止ロジックの変更 ---
-        // 焼き進捗が閾値を超えていて、かつ真っ黒焦げでなければタイマー開始可能状態
         if (bakeProgress >= startFinishTimerThreshold && !isBurntTooMuch)
         {
             canStartFinishTimer = true;
         }
         else
         {
-            // 閾値に達していない、または真っ黒焦げになったらタイマー開始不可
             canStartFinishTimer = false;
         }
 
-        // 接触状態が「接触」から「非接触」に変わった瞬間、かつタイマー開始可能状態であればタイマーを開始
         if (!isCurrentlyContactingFire && wasContactingFire && canStartFinishTimer)
         {
             Debug.Log("火から離れました！仕上げタイマーを開始します。");
@@ -119,7 +114,7 @@ public class BakeManager : MonoBehaviour {
                 gameManager.StartInGameTimerDisplay(finishTimerDuration);
             }
         }
-        // 接触状態が「非接触」から「接触」に変わった瞬間、または接触中の場合でタイマーが表示中であれば停止
+        // ここでgameManagerがnullでないか、かつgameManager.IsTimerDisplaying() を呼び出す前にgameManagerが有効かチェック
         else if (isCurrentlyContactingFire && gameManager != null && gameManager.IsTimerDisplaying())
         {
              Debug.Log("火に接触しました。仕上げタイマーを停止。");
@@ -174,7 +169,8 @@ public class BakeManager : MonoBehaviour {
     }
 
     private void EndGame() {
-        if (gameManager != null && !gameManager.GetComponent<GameManager>().enabled)
+        // gameManagerがnullでないか、かつenabledになっているかを確認
+        if (gameManager == null || !gameManager.enabled)
         {
             return;
         }
@@ -189,7 +185,7 @@ public class BakeManager : MonoBehaviour {
             finalScore = 0;
             isSuccess = false;
         }
-        else // タイマー終了によるゲーム終了の場合
+        else 
         {
             isSuccess = finalScore >= 800;
             resultMessage = isSuccess ? "成功！" : "失敗...";
@@ -200,7 +196,7 @@ public class BakeManager : MonoBehaviour {
             gameOverText.enabled = true;
         }
 
-        if (gameManager != null) {
+        if (gameManager != null) { // gameManagerがnullチェック済みだが、念のため
             gameManager.EndGame(isSuccess);
             this.enabled = false; 
         }

@@ -4,7 +4,6 @@ public class ImoDrag : MonoBehaviour {
     private Vector2 offset;
     private Rigidbody2D rb;
     private Vector2 minBounds, maxBounds;
-    // private bool isGameOver = false; // GameManagerが管理するので不要に
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -13,13 +12,11 @@ public class ImoDrag : MonoBehaviour {
     }
 
     void OnMouseDown() {
-        // GameManagerでenabledがfalseの場合、ドラッグできないようにする
         if (!this.enabled) return; 
         offset = (Vector2)(transform.position - GetMouseWorldPos());
     }
 
     void OnMouseDrag() {
-        // GameManagerでenabledがfalseの場合、ドラッグできないようにする
         if (!this.enabled) return;
         Vector2 targetPosition = (Vector2)GetMouseWorldPos() + offset;
         targetPosition.x = Mathf.Clamp(targetPosition.x, minBounds.x, maxBounds.x);
@@ -27,11 +24,6 @@ public class ImoDrag : MonoBehaviour {
 
         rb.MovePosition(targetPosition);
     }
-
-    // SetGameOverはGameManagerが呼ぶので不要、このスクリプト自身のenabledで制御する
-    // public void SetGameOver() {
-    //     isGameOver = true;
-    // }
 
     private Vector3 GetMouseWorldPos() {
         Vector3 mousePos = Input.mousePosition;

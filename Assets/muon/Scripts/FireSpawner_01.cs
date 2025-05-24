@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class FireSpawner : MonoBehaviour
+public class FireSpawner_01 : MonoBehaviour // クラス名をFireSpawner_01に変更
 {
     [Header("■ 火のPrefab設定")]
     [Tooltip("生成する火のPrefab（FireZoneなど）をここに設定します。")]
@@ -10,39 +10,37 @@ public class FireSpawner : MonoBehaviour
 
     [Header("■ 生成間隔と最大生成数")]
     [Tooltip("新しい火を生成する間隔の最小値（秒）")]
-    public float minSpawnInterval = 2f; // 火を生成する間隔の最小値
+    public float minSpawnInterval = 2f; 
     [Tooltip("新しい火を生成する間隔の最大値（秒）")]
-    public float maxSpawnInterval = 3f; // 火を生成する間隔の最大値
+    public float maxSpawnInterval = 3f; 
     [Tooltip("同時に存在できる火の最大数")]
-    public int maxFires = 3; // 同時に存在する火の最大数
+    public int maxFires = 3; 
 
-    // --- 火の出現範囲設定 (四角形) ---
-    [Header("■ 火の出現範囲設定 (四角形)")] // ヘッダーを四角形用に変更
+    [Header("■ 火の出現範囲設定 (四角形)")] 
     [Tooltip("火が出現するワールド座標の最小X値")]
-    public float minX = -4f; // 出現範囲の最小X座標
+    public float minX = -4f; 
     [Tooltip("火が出現するワールド座標の最大X値")]
-    public float maxX = 4f; // 出現範囲の最大X座標
+    public float maxX = 4f; 
     [Tooltip("火が出現するワールド座標の最小Y値（上半分指定のため高めの値）")]
-    public float minY = 0.5f; // 出現範囲の最小Y座標（画面中央より上）
+    public float minY = 0.5f; 
     [Tooltip("火が出現するワールド座標の最大Y値")]
-    public float maxY = 3.5f; // 出現範囲の最大Y座標
-    // --- 変更ここまで ---
+    public float maxY = 3.5f; 
 
-    private int currentFireCount = 0; // 現在存在する火の数
+    private int currentFireCount = 0; 
 
     void Start()
     {
-        StartCoroutine(SpawnFireRoutine()); // 定期的に火を生成するコルーチンを開始
+        StartCoroutine(SpawnFireRoutine()); 
     }
 
     IEnumerator SpawnFireRoutine()
     {
-        while (true)
+        while (true) 
         {
             float randomInterval = UnityEngine.Random.Range(minSpawnInterval, maxSpawnInterval);
             yield return new WaitForSeconds(randomInterval);
 
-            if (currentFireCount < maxFires)
+            if (currentFireCount < maxFires) 
             {
                 SpawnFire();
             }
@@ -51,13 +49,10 @@ public class FireSpawner : MonoBehaviour
 
     void SpawnFire()
     {
-        // --- 四角形範囲内のランダムな位置を計算 ---
         float randomX = UnityEngine.Random.Range(minX, maxX);
         float randomY = UnityEngine.Random.Range(minY, maxY);
-        Vector3 spawnPosition = new Vector3(randomX, randomY, 0); // 2DなのでZは0
-        // --- 変更ここまで ---
+        Vector3 spawnPosition = new Vector3(randomX, randomY, 0);
 
-        // Prefabを生成
         GameObject newFire = Instantiate(firePrefab, spawnPosition, Quaternion.identity);
         currentFireCount++;
 
@@ -81,11 +76,9 @@ public class FireSpawner : MonoBehaviour
         Debug.Log($"火が消滅しました。現在の火の数: {currentFireCount}");
     }
 
-    // デバッグ用に、Sceneビューで四角形の範囲を表示する
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        // 四角形の中心点とサイズを計算
         Vector3 center = new Vector3((minX + maxX) / 2f, (minY + maxY) / 2f, 0);
         Vector3 size = new Vector3(maxX - minX, maxY - minY, 0);
         Gizmos.DrawWireCube(center, size);
