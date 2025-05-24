@@ -7,11 +7,16 @@ TagManager:
   - chebuhome_0
   - chebuhome_1
   - chebuhome_2
+  - chebuhome_3
+  - chebuhome_4
+  - chebuhome_5
+  - chebuhome_6
+  - chebuhome_7
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - piece
   - Water
   - UI
   - 
@@ -46,4 +51,7 @@ TagManager:
     locked: 0
   - name: piece
     uniqueID: 23404125
+    locked: 0
+  - name: UI
+    uniqueID: 821657019
     locked: 0

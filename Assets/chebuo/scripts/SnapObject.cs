@@ -18,6 +18,7 @@ public class SnapObject : MonoBehaviour
         targetTag = this.gameObject.name;
         snapTarget = GameObject.Find(this.name);
         dragObject=snapTarget.AddComponent<DragObject>();
+        dragObject.gameObject.layer = 3;
         cc=this.AddComponent<CircleCollider2D>();
         rb=this.AddComponent<Rigidbody2D>();
         cc.isTrigger=true;
