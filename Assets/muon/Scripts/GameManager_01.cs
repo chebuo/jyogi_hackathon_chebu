@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 // テンプレート用のGameManager
 // ゲームの開始、終了、UIの表示、シーン遷移などを管理します。
-public class GameManager : MonoBehaviour
+public class GameManager_01 : MonoBehaviour // クラス名をGameManager_01に変更
 {
     [Header("■ カウントダウン設定")]
     [Tooltip("ゲーム開始時と、ゲーム内の特定のイベント（例：完成判定後）でカウントダウンを表示するText UIコンポーネントをここに設定します。")]
@@ -16,10 +16,8 @@ public class GameManager : MonoBehaviour
     [Header("■ ゲームプレイ制御オブジェクト")]
     [Tooltip("ゲームプレイを管理するオブジェクトをここに設定します。ゲーム開始/終了時に有効/無効を切り替えます。")]
     public GameObject gameplayRootObject; // ゲームプレイのルートとなるオブジェクト（例：今回のimoなど、ゲーム固有の要素をまとめた親オブジェクト）
-    // --- 追加: BakeManager への参照を再追加 ---
     [Tooltip("imoオブジェクトにアタッチされているBakeManagerスクリプトをここに設定します。")]
     public BakeManager bakeManager; 
-    // --- 追加ここまで ---
     [Tooltip("imoオブジェクトにアタッチされているImoDragスクリプトをここに設定します。")]
     public ImoDrag imoDrag; // ImoDragへの参照
 
@@ -41,8 +39,8 @@ public class GameManager : MonoBehaviour
         {
             gameplayRootObject.SetActive(false);
         }
-        if (bakeManager != null) { bakeManager.enabled = false; } // BakeManagerも無効化
-        if (imoDrag != null) { imoDrag.enabled = false; } // ImoDragも無効化
+        if (bakeManager != null) { bakeManager.enabled = false; }
+        if (imoDrag != null) { imoDrag.enabled = false; }
 
         // ゲーム終了UIは最初から非表示にする
         if (gameOverPanel != null) { gameOverPanel.SetActive(false); }
@@ -87,8 +85,8 @@ public class GameManager : MonoBehaviour
         {
             gameplayRootObject.SetActive(true);
         }
-        if (bakeManager != null) { bakeManager.enabled = true; } // BakeManagerを有効化
-        if (imoDrag != null) { imoDrag.enabled = true; } // ImoDragを有効化
+        if (bakeManager != null) { bakeManager.enabled = true; }
+        if (imoDrag != null) { imoDrag.enabled = true; }
 
         // ゲーム終了UIは念のためここで非表示を徹底
         if (gameOverPanel != null) { gameOverPanel.SetActive(false); }
@@ -138,9 +136,9 @@ public class GameManager : MonoBehaviour
         isTimerDisplaying = false; // タイマーが0になったらフラグをfalseに
         
         // タイマーが0になったらゲームを終了する
-        if (bakeManager != null) // ここがエラーの原因
+        if (bakeManager != null)
         {
-            bakeManager.ForceEndGameByTimer(); // BakeManagerのメソッドを呼び出す
+            bakeManager.ForceEndGameByTimer();
         }
     }
 
@@ -156,8 +154,8 @@ public class GameManager : MonoBehaviour
         {
             gameplayRootObject.SetActive(false);
         }
-        if (bakeManager != null) { bakeManager.enabled = false; } // BakeManagerも無効化
-        if (imoDrag != null) { imoDrag.enabled = false; } // ImoDragも無効化
+        if (bakeManager != null) { bakeManager.enabled = false; }
+        if (imoDrag != null) { imoDrag.enabled = false; }
 
         // カウントダウンテキストも非表示にする
         if (countdownText != null) { countdownText.gameObject.SetActive(false); }
@@ -165,16 +163,16 @@ public class GameManager : MonoBehaviour
 
         // ゲーム終了UIを表示
         if (gameOverPanel != null) { gameOverPanel.SetActive(true); }
-        if (retryButton != null) { retryButton.gameObject.SetActive(true); } // リトライボタンは常に表示
+        if (retryButton != null) { retryButton.gameObject.SetActive(true); }
 
         if (success)
         {
-            if (nextStageButton != null) { nextStageButton.gameObject.SetActive(true); } // 成功の場合のみ次のステージボタンを表示
+            if (nextStageButton != null) { nextStageButton.gameObject.SetActive(true); }
             Debug.Log("ゲーム成功！次のステージへ進めます。");
         }
         else
         {
-            if (nextStageButton != null) { nextStageButton.gameObject.SetActive(false); } // 失敗の場合、次のステージボタンは非表示
+            if (nextStageButton != null) { nextStageButton.gameObject.SetActive(false); }
             Debug.Log("ゲーム失敗...リトライしてください。");
         }
     }
