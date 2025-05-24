@@ -22,7 +22,6 @@ public class HitCounter : MonoBehaviour
         {
             currentHits++;
             UpdateText();
-            Debug.Log("a");
             Debug.Log("currentHits: " + currentHits);
         }
         

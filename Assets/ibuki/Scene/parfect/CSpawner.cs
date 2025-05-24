@@ -6,7 +6,7 @@ public class CSpawner : MonoBehaviour
 {
     public GameObject hannteisenPrefab; // プレハブへの参照
     public Vector3 spawnPosition = Vector3.zero; // 生成位置
-    public float minSpawnDelay = 1f; // 最小待機時間
+    public float minSpawnDelay = 2f; // 最小待機時間
     public float maxSpawnDelay = 5f; // 最大待機時間
     public int maxSpawnCount = 10;//生成回数の上限
 
@@ -17,7 +17,7 @@ public class CSpawner : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnLoop());
+        StartCoroutine(SpawnLoop());//dekiteru
     }
 
     private IEnumerator SpawnLoop()
@@ -28,7 +28,6 @@ public class CSpawner : MonoBehaviour
             {
                 float waitTime = Random.Range(minSpawnDelay, maxSpawnDelay);
                 yield return new WaitForSeconds(waitTime);
-
                 currentHannteisen = Instantiate(hannteisenPrefab, spawnPosition, Quaternion.identity);
                 spawnCount++;//生成回数をインクリメント
 

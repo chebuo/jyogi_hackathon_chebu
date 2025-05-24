@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement; // シーン管理のために必要
 
 // テンプレート用のGameManager
 // ゲームの開始、終了、UIの表示、シーン遷移などを管理します。
-public class GameManager : MonoBehaviour
+public class GamaManager : MonoBehaviour
 {
     [Header("■ カウントダウン設定")]
     [Tooltip("ゲーム開始時と、ゲーム内の特定のイベント（例：完成判定後）でカウントダウンを表示するText UIコンポーネントをここに設定します。")]
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("■ ゲームプレイ制御オブジェクト")]
     [Tooltip("ゲームプレイを管理するオブジェクトをここに設定します。ゲーム開始/終了時に有効/無効を切り替えます。")]
     public GameObject hannteisenn1;// ゲームプレイのルートとなるオブジェクト（例：今回のimoなど、ゲーム固有の要素をまとめた親オブジェクト）
-    public GameObject hannteisenn2; 
+    public GameObject hannteisenn2;
     public GameObject hannteisenn3;
     [Header("■ ゲーム終了UI設定")]
     [Tooltip("ゲーム終了時に表示されるパネル（例：GameOverPanel）をここに設定します。")]
@@ -103,15 +103,13 @@ public class GameManager : MonoBehaviour
         if (hannteisenn2 != null)
         {
             hannteisenn2.SetActive(true);
-
         }
 
         if (hannteisenn3 != null)
         {
             hannteisenn3.SetActive(true);
-
         }
-       
+
 
         // ゲーム終了UIは念のためここで非表示を徹底
         if (gameOverPanel != null) { gameOverPanel.SetActive(false); }
@@ -169,13 +167,13 @@ public class GameManager : MonoBehaviour
         Debug.Log($"ゲーム終了！成功: {success}");
 
         // ゲームプレイオブジェクトを無効化
-        if (hannteisenn1= null)
+        if (hannteisenn1 != null)
         {
             hannteisenn1.SetActive(false);
             // ここでゲーム固有のロジック（例：プレイヤー操作スクリプトの無効化など）を呼び出す
         }
 
-        if (hannteisenn2  != null)
+        if (hannteisenn2 != null)
         {
             hannteisenn2.SetActive(false);
         }
