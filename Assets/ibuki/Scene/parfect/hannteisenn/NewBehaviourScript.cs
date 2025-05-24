@@ -2,23 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CTrigger : MonoBehaviour
+public class NewBehaviourScript : MonoBehaviour
 {
-     HitCounter hitCounter;
+    HitCounter hitCounter;
     [SerializeField] GameObject scoretext;
-    GameObject hannteisenn1;
+    [SerializeField] GameObject ggggame;
+    GAME game;
+    GameObject hannteisenn2;
     private bool isInHitZone = false;
-    private bool destroyedByKey = false;
-
+    private bool destroyedByKey=false;
 
     void Start()
     {
         hitCounter = scoretext.GetComponent<HitCounter>();
+        game = ggggame.GetComponent<GAME>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("hidari"))
+        if (other.CompareTag("migi"))
         {
             isInHitZone = true;
         }
@@ -26,41 +28,44 @@ public class CTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("hidari"))
+        if (other.CompareTag("migi"))
         {
             isInHitZone = false;
         }
     }
 
-
     private void Update()
     {
-        hannteisenn1 = GameObject.FindWithTag("hidari");
-        if (hannteisenn1 == null) return;
-        if (Input.GetKeyDown(KeyCode.A))
+        hannteisenn2 = GameObject.FindWithTag("migi");
+        if (hannteisenn2 == null) return;
+        if (Input.GetKeyDown(KeyCode.D))
         {
             if (isInHitZone)
             {
                 Debug.Log("Hit");
-                hitCounter.AddHit(); 
+                hitCounter.AddHit();
+                game.RegisterHit();
             }
             else
             {
                 Debug.Log("Miss");
+                game.RegisterMiss();
             }
 
             destroyedByKey = true;
-            Destroy(hannteisenn1.gameObject);
+            Destroy(hannteisenn2.gameObject);
         }
-        Debug.Log(hannteisenn1);
-
+        Debug.Log(hannteisenn2);
     }
+
     private void OnDestroy()
     {
-        if (!destroyedByKey)
+        if(!destroyedByKey)
         {
             Debug.Log("Miss");
+            game.RegisterMiss();
         }
     }
-
 }
+
+

@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class HitCounter : MonoBehaviour
 {
     [SerializeField] Text hitCounterText;
-    [SerializeField] private int maxHits = 30;
+    [SerializeField] private int maxHits = 15;
 
-    int currentHits = 0;
+    public int currentHits = 0;
 
     void Start()
     {
