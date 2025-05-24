@@ -31,12 +31,12 @@ public class Channtei : MonoBehaviour
         if (transform.localScale.x <= destroyScale)
         {
             Destroy(gameObject);
+            Debug.Log("Miss");
             return;
         }
 
-
-       
-
-
     }
+
+
+
 }

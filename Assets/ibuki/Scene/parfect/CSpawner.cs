@@ -8,10 +8,12 @@ public class CSpawner : MonoBehaviour
     public Vector3 spawnPosition = Vector3.zero; // 生成位置
     public float minSpawnDelay = 1f; // 最小待機時間
     public float maxSpawnDelay = 5f; // 最大待機時間
-    public int maxSpawnCount = 5;//生成回数の上限
+    public int maxSpawnCount = 10;//生成回数の上限
 
     private GameObject currentHannteisen;
     private int spawnCount = 0;//現在の生成回数の記録
+
+
 
     void Start()
     {
@@ -29,8 +31,9 @@ public class CSpawner : MonoBehaviour
 
                 currentHannteisen = Instantiate(hannteisenPrefab, spawnPosition, Quaternion.identity);
                 spawnCount++;//生成回数をインクリメント
+
             }
             yield return null;
-        }
+        }  
     }
 }
