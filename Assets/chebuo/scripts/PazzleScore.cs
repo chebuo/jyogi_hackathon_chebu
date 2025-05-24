@@ -8,7 +8,10 @@ public class PazzleScore : MonoBehaviour
     [SerializeField] GameObject finishPanel;
     GameObject[] pazzlePiece;
     public bool AllFinished;
-    int puzzlescore;
+    int scoreaverange;
+    int scoreLength;
+    int allscore;
+    int pazzlescore;
     int finishedPiece;
     int i = 0;
     string leaderboardID = "30958";
@@ -31,6 +34,7 @@ public class PazzleScore : MonoBehaviour
     }
     void Update()
     {
+        pazzlescore++;
         AllFinished = true;
        
         foreach (GameObject piece in pazzlePiece)
@@ -49,13 +53,16 @@ public class PazzleScore : MonoBehaviour
             finishPanel.SetActive(true);
             if (i == 0)
             {
-                StartCoroutine(LoginAndSubmitScore(40));
+                StartCoroutine(LoginAndSubmitScore(pazzlescore));
                 i++;
                 Debug.Log("sousin");
             }
         }
-
     }
+  /*  int GetAverange(int all,int score)
+    {
+
+    }*/
     public IEnumerator LoginAndSubmitScore(int score)
     {
         bool done = false;
@@ -94,6 +101,26 @@ public class PazzleScore : MonoBehaviour
             done = true;
         });
 
+        yield return new WaitUntil(() => done);
+        LootLockerSDKManager.GetScoreList(leaderboardID, 100, (response) =>
+        {
+            if (response.success)
+            {
+                Debug.Log("スコアリスト取得成功！");
+                foreach (var member in response.items)
+                {
+                    Debug.Log($"順位：{member.rank}|{member.score}");
+                    allscore += member.score;
+                }
+                scoreLength = response.items.Length;
+            }
+            else
+            {
+                Debug.Log("スコアリスト取得失敗: " + response.errorData?.message);
+            }
+            scoreaverange=allscore / scoreLength;
+            Debug.Log(scoreaverange);
+        });
         yield return new WaitUntil(() => done);
     }
 }
