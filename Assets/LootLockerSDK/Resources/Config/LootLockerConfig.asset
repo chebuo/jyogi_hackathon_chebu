@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LootLockerConfig
   m_EditorClassIdentifier: 
   apiKey: dev_416705bc1ef0469cb5a6e526dd78dfab
-  token: a2ea266c49dd2ba5408c1e85d830988749a1fa88
-  adminToken: 2284a9821f06b9936c835ebf1aabc9a84c362e17
+  token: fc66de382d500daf5836f6e06e80a9d02d7a218f
+  adminToken: 
   refreshToken: 
   domainKey: c6kvv7kw
   gameID: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
   baseUrl: https://c6kvv7kw.api.lootlocker.com
   clientSideRequestTimeOut: 180
   currentDebugLevel: 0
-  logLevel: 5
+  logLevel: 2
   logErrorsAsWarnings: 0
   logInBuilds: 0
   allowTokenRefresh: 1

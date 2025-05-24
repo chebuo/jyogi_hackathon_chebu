@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
+    int i = 0;
+    public int finishedPiece = 0;
     public bool finished = false;
     [SerializeField] GameObject snap;
     PolygonCollider2D pc;
@@ -13,7 +15,7 @@ public class DragObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        this.gameObject.layer = 3;
         snap = GameObject.Find("chebuhome_matome");
         var matomeTrans = snap.transform;
         var children = new GameObject[matomeTrans.childCount];
@@ -47,6 +49,11 @@ public class DragObject : MonoBehaviour
         {
             this.transform.position = snap.transform.position;
             this.transform.rotation = snap.transform.rotation;
+            if(i == 0)
+            {
+                finishedPiece++;
+                i++;
+            }
         }
     }
 }
