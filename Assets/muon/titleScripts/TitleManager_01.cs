@@ -156,4 +156,8 @@ public class TitleManager_01 : MonoBehaviour // クラス名をTitleManager_01�
             closeHowToPlayButton.onClick.RemoveListener(OnCloseHowToPlayButtonClicked);
         }
     }
+    public void IMOKESU()
+    {
+        Destroy(GameObject.Find("haikei_01"));
+    }
 }

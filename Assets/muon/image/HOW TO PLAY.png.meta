@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3269fb4a525b014ab380d9586e89719
+guid: d3800ba05e68bf046987139254ec238d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,11 +49,11 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 45, y: 610, z: 40, w: 565}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Retry_0
+      name: HOW TO PLAY_0
       rect:
         serializedVersion: 2
-        x: 120
-        y: 318
-        width: 784
-        height: 435
+        x: 76
+        y: 622
+        width: 1892
+        height: 842
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,24 +137,28 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 894484e8e6644ab40979f8ac1a46a0ec
-      internalID: -248727721
+      spriteID: 7acaf827543b0ee42b43389a02466463
+      internalID: 583055908
       vertices: []
       indices: 
       edges: []
       weights: []
-    outline: []
+    outline:
+    - - {x: -986, y: -432}
+      - {x: -986, y: 448}
+      - {x: 946, y: 448}
+      - {x: 946, y: -432}
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Retry_0: -248727721
+      HOW TO PLAY_0: 583055908
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
