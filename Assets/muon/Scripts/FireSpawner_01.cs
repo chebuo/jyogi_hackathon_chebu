@@ -27,11 +27,37 @@ public class FireSpawner_01 : MonoBehaviour // クラス名をFireSpawner_01に�
     public float maxY = 3.5f; 
 
     private int currentFireCount = 0; 
+    private Coroutine spawnFireCoroutine; // コルーチンの参照を保持
 
+    // Start() からコルーチン呼び出しを削除
     void Start()
     {
-        StartCoroutine(SpawnFireRoutine()); 
+        // Debug.Log("FireSpawner_01のStartが呼び出されました。"); // デバッグログは残しても良い
+        // StartCoroutine(SpawnFireRoutine()); // この行を削除
     }
+
+    public void StartSpawningFires()
+    {
+        if (spawnFireCoroutine != null)
+        {
+            StopCoroutine(spawnFireCoroutine); // 既にコルーチンが動いていれば停止
+        }
+        spawnFireCoroutine = StartCoroutine(SpawnFireRoutine()); // 火の生成コルーチンを開始
+        Debug.Log("FireSpawner_01: 火の生成を開始します。");
+    }
+
+    public void StopSpawningFires()
+    {
+        if (spawnFireCoroutine != null)
+        {
+            StopCoroutine(spawnFireCoroutine); // 火の生成コルーチンを停止
+            spawnFireCoroutine = null;
+        }
+        Debug.Log("FireSpawner_01: 火の生成を停止しました。");
+        // 生成済みの火を全て削除するならここに追加
+        // foreach (var fire in FindObjectsOfType<FireController>()) { Destroy(fire.gameObject); }
+    }
+
 
     IEnumerator SpawnFireRoutine()
     {
@@ -49,6 +75,7 @@ public class FireSpawner_01 : MonoBehaviour // クラス名をFireSpawner_01に�
 
     void SpawnFire()
     {
+        Debug.Log($"FireSpawner_01: SpawnFireが呼び出されました。現在の火の数: {currentFireCount}"); // 追加
         float randomX = UnityEngine.Random.Range(minX, maxX);
         float randomY = UnityEngine.Random.Range(minY, maxY);
         Vector3 spawnPosition = new Vector3(randomX, randomY, 0);
