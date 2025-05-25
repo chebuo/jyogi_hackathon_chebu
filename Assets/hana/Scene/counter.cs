@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class counter : MonoBehaviour
+public class Counter : MonoBehaviour
 {
     private int count = 0 ;
     void OnMouseDown()
@@ -13,9 +13,9 @@ public class counter : MonoBehaviour
         count++;
         Debug.Log($"{gameObject.name} がクリックされた！個別: {count} 回");
         // GameManager に全体カウントを通知
-        if (GameManager.instance != null)
+        if (Count.instance != null)
         {
-            GameManager.instance.AddClick();
+            Count.instance.AddClick();
         }
     }
 
@@ -29,8 +29,6 @@ public class counter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-       
     }
 
     private void Instantiate(object ballPrefab)
@@ -38,4 +36,5 @@ public class counter : MonoBehaviour
         throw new NotImplementedException();
     }
    
+    
 }
