@@ -1,11 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using LootLocker.Requests;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class PazzleScore : MonoBehaviour
 {
     [SerializeField] GameObject finishPanel;
+    [SerializeField] GameObject score;
+    [SerializeField] GameObject avescore;
     GameObject[] pazzlePiece;
     public bool AllFinished;
     int scoreaverange;
@@ -15,8 +19,14 @@ public class PazzleScore : MonoBehaviour
     int finishedPiece;
     int i = 0;
     string leaderboardID = "30958";
+    AddScriptChild addScriptChild;
+    Text scoretext;
+    Text avetext;
     void Start()
     {
+        addScriptChild = GameObject.Find("chebuhome_matome").GetComponent<AddScriptChild>();
+        scoretext = score.GetComponent<Text>();
+        avetext = avescore.GetComponent<Text>();
         pazzlePiece=GetAllPiece();
         finishPanel.SetActive(false);
     }
@@ -34,9 +44,9 @@ public class PazzleScore : MonoBehaviour
     }
     void Update()
     {
-        pazzlescore++;
         AllFinished = true;
-        
+        pazzlescore = (int)addScriptChild.timer*50;
+        Debug.Log(pazzlescore);
         foreach (GameObject piece in pazzlePiece)
         {
             if (piece.GetComponent<DragObject>() == null) return;
@@ -113,6 +123,10 @@ public class PazzleScore : MonoBehaviour
                     allscore += member.score;
                 }
                 scoreLength = response.items.Length;
+                scoreaverange = allscore / scoreLength;
+                Debug.Log(scoreaverange);
+                scoretext.text = "SCORE:" + score;
+                avetext.text = "AVERAGE:" + scoreaverange;
             }
             else
             {
@@ -120,8 +134,5 @@ public class PazzleScore : MonoBehaviour
             }
         });
         yield return new WaitUntil(() => done);
-        scoreaverange = allscore / scoreLength;
-        Debug.Log(scoreaverange);
-
     }
 }

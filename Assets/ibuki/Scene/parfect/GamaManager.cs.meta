@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 74138516b8e01d24aaaab13f3179031d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - countdownText: {instanceID: 0}
+  - hannteisenn1: {fileID: 5118967847119201260, guid: f600d6daf1d0eee4ea04adfa8b3ad8c1, type: 3}
+  - hannteisenn2: {fileID: 8346658139372829078, guid: bea7936d8f9bbda4698d11be09253a91, type: 3}
+  - hannteisenn3: {fileID: 5034649301507522145, guid: a3590f935a90c644483375381e8cb59f, type: 3}
+  - gameOverPanel: {instanceID: 0}
+  - retryButton: {instanceID: 0}
+  - nextStageButton: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
