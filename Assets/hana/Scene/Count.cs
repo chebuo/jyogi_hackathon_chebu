@@ -38,7 +38,6 @@ public class Count : MonoBehaviour
     {
         UpdateUI();  // ‰Šú•\Ž¦
                      //if (ScoreText != null) { nextStageButton.gameObject.SetActive(false); }
-        StartCoroutine(LoginAndSubmitScore(20));
 
     }
 
@@ -78,15 +77,17 @@ public class Count : MonoBehaviour
 
         
 
-        if (countdown.currentTime ==0)
+        if (countdown.currentTime >=0)
         {
             if (Score< 400)
             {
-                Jage.text = ("Á‰ÎŽ¸”s");
+                Jage.text = ("‰Šã");
             }
             else 
             {         
                 Jage.text = ("Á‰Î¬Œ÷");
+                StartCoroutine(LoginAndSubmitScore(Score));
+
             }
         }
 
