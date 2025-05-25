@@ -4,6 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
+
+  - HitZone
+  - migi
+  - hidari
+  - ue
+  - hidarinoenn
+  - uenoenn
+  - miginoenn
+
   - chebuhome_0
   - chebuhome_1
   - chebuhome_2
@@ -12,6 +21,7 @@ TagManager:
   - chebuhome_5
   - chebuhome_6
   - chebuhome_7
+
   layers:
   - Default
   - TransparentFX
