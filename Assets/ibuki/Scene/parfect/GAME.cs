@@ -67,13 +67,17 @@ public class GAME : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        Debug.Log(time);
+        if (time >= 40f)
+        {
+            EndGame();//dekita!!!!!
+            Debug.Log("dekiteru");
+        }
     }
 
-    private void CheckGameEnd()
+     void CheckGameEnd()
     {
         int total = hitCount + missCount;
-        if (time >= 30|| total==15)
+        if(total==15)
         {
             EndGame();//dekita!!!!!
             Debug.Log("dekiteru");

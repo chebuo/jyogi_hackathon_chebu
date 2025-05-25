@@ -12,6 +12,11 @@ public class NNNewBehaviourScript1 : MonoBehaviour
     private bool isInHitZone = false;
     private bool destroyedByKey = false;
 
+    //効果音用のAudioSource
+    [SerializeField] public AudioSource hitSound;
+    [SerializeField] public AudioSource missSound;
+
+
     void Start()
     {
 
@@ -31,6 +36,11 @@ public class NNNewBehaviourScript1 : MonoBehaviour
         else
         {
             game = gggggame.GetComponent<GAME>();
+        }
+
+        if(hitSound==null || missSound==null)
+        {
+            Debug.LogError("効果音未セット");
         }
     }
 
@@ -61,11 +71,16 @@ public class NNNewBehaviourScript1 : MonoBehaviour
                 Debug.Log("Hit");
                 hitCounter.AddHit();
                 game.RegisterHit();
+
+                //効果音を再生
+                if (hitSound != null) hitSound.Play();
             }
             else
             {
                 Debug.Log("Miss");
                 game.RegisterMiss();
+                //効果音を再生
+                if (missSound != null) missSound.Play();
             }
 
             destroyedByKey = true;
@@ -80,6 +95,8 @@ public class NNNewBehaviourScript1 : MonoBehaviour
         {
             Debug.Log("Miss");
             game.RegisterMiss();
+
+            if (missSound != null) missSound.Play();
         } 
 
     }

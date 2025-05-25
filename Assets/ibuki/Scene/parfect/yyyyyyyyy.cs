@@ -22,7 +22,10 @@ public class yyyyyyyyy : MonoBehaviour
     {   
             if (hitsText != null)
             {
-                hitsText.text = "Score: " + (hitCounter.currentHits * 66);
+               int calculatedScore=hitCounter.currentHits * 67;
+               int finalscore = Mathf.Min(calculatedScore, 1000);
+
+            hitsText.text = "Score: " + finalscore;
             }
     }
 }
