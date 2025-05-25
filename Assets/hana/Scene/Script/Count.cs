@@ -79,7 +79,7 @@ public class Count : MonoBehaviour
 
         if (countdown.currentTime >=0)
         {
-            if (Score< 400)
+            if (Score< 540)
             {
                 Jage.text = ("‰Šã");
             }
