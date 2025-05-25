@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/ibuki/Scene/ibuki.unity
+    guid: 678d8245d6db5b543a4945df866cd3a0
+  - enabled: 1
+    path: Assets/hana/Scene/hana.unity
+    guid: eae41dec69b141e4b809ff072c164baa
   m_configObjects: {}

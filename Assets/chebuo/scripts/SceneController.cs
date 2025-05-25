@@ -19,7 +19,7 @@ public class SceneController : MonoBehaviour
     }
     public void FinishScene()
     {
-        SceneManager.LoadScene("titleScene");
+        SceneManager.LoadScene("title");
     }
     public void RetryScene()
     {

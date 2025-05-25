@@ -11,7 +11,7 @@ public class AddScriptChild : MonoBehaviour
     float fseconds=4;
     int seconds;
     int countdown;
-    float timer=20;
+    public float timer=20;
     int timerint=0;
     [SerializeField] GameObject counttext;
     [SerializeField] GameObject timetext;
@@ -48,7 +48,6 @@ public class AddScriptChild : MonoBehaviour
             timer-= Time.deltaTime;
             timerint = (int)timer;
             timertext.text = "TIME:"+((int)timerint).ToString();
-            Debug.Log(timer);
         }
         fseconds -= Time.deltaTime;
         if (fseconds > 1)

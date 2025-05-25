@@ -228,6 +228,6 @@ public class GameManager_01 : MonoBehaviour
     public void GoToNextStage()
     {
         Debug.Log("次のステージへ進みます...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        SceneManager.LoadScene("ibuki"); 
     }
 }
