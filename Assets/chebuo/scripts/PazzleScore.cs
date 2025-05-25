@@ -9,6 +9,7 @@ public class PazzleScore : MonoBehaviour
 {
     [SerializeField] GameObject finishPanel;
     [SerializeField] GameObject score;
+    [SerializeField] GameObject avescore;
     GameObject[] pazzlePiece;
     public bool AllFinished;
     int scoreaverange;
@@ -20,10 +21,12 @@ public class PazzleScore : MonoBehaviour
     string leaderboardID = "30958";
     AddScriptChild addScriptChild;
     Text scoretext;
+    Text avetext;
     void Start()
     {
         addScriptChild = GameObject.Find("chebuhome_matome").GetComponent<AddScriptChild>();
         scoretext = score.GetComponent<Text>();
+        avetext = avescore.GetComponent<Text>();
         pazzlePiece=GetAllPiece();
         finishPanel.SetActive(false);
     }
@@ -123,6 +126,7 @@ public class PazzleScore : MonoBehaviour
                 scoreaverange = allscore / scoreLength;
                 Debug.Log(scoreaverange);
                 scoretext.text = "SCORE:" + score;
+                avetext.text = "AVERAGE:" + scoreaverange;
             }
             else
             {

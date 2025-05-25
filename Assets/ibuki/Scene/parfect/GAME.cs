@@ -112,6 +112,6 @@ public class GAME : MonoBehaviour
         // 実際のゲームでは、次のシーン名（例: "Stage2"）を指定
         // 例: SceneManager.LoadScene("Stage2");
         // ここでは、現在のシーンを再読み込みするダミー処理
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("hana");
     }
 }
