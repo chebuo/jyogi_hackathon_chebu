@@ -8,11 +8,10 @@ public class FireController : MonoBehaviour
     [Tooltip("火の初期スケール（生成直後の小ささ）")]
     public Vector3 initialScale = new Vector3(0.1f, 0.1f, 1f);
 
-    [Tooltip("最大スケールの最小値（X軸、Y軸共通）")] // 説明をX,Y共通に変更
-    public float minMaxScale = 1.0f; // 最小の最大スケール
-    [Tooltip("最大スケールの最大値（X軸、Y軸共通）")] // 説明をX,Y共通に変更
-    public float maxMaxScale = 4.0f; // 最大の最大スケール
-    // minMaxScaleX, maxMaxScaleX, minMaxScaleY, maxMaxScaleY は不要になるので削除
+    [Tooltip("最大スケールの最小値（X軸、Y軸共通）")] 
+    public float minMaxScale = 1.0f; 
+    [Tooltip("最大スケールの最大値（X軸、Y軸共通）")] 
+    public float maxMaxScale = 4.0f; 
 
     [Tooltip("火が最大スケールになるまでの時間の最小値")]
     public float minGrowTime = 1.0f;
@@ -37,25 +36,21 @@ public class FireController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log($"FireController: {gameObject.name} のStartが呼び出されました。初期スケール: {transform.localScale}"); // 追加
         transform.localScale = initialScale;
 
-        // --- 修正箇所：XとYで共通のランダム値を生成し、円形を保つ ---
         float randomUniformScale = UnityEngine.Random.Range(minMaxScale, maxMaxScale);
         currentMaxScale = new Vector3(randomUniformScale, randomUniformScale, 1f);
-        // --- 修正ここまで ---
 
         currentGrowTime = UnityEngine.Random.Range(minGrowTime, maxGrowTime);
         currentSustainTime = UnityEngine.Random.Range(minSustainTime, maxSustainTime);
         currentShrinkTime = currentGrowTime;
 
-        StartCoroutine(FireLifecycleRoutine());
+        StartCoroutine(FireLifecycleRoutine()); 
     }
-
-    // ... (FireLifecycleRoutine、DestroyFire、GetCurrentScale メソッドは変更なし) ...
 
     IEnumerator FireLifecycleRoutine()
     {
-        // 1. 成長フェーズ
         float timer = 0f;
         while (timer < currentGrowTime)
         {
@@ -66,10 +61,8 @@ public class FireController : MonoBehaviour
         }
         transform.localScale = currentMaxScale;
 
-        // 2. 維持フェーズ
         yield return new WaitForSeconds(currentSustainTime);
 
-        // 3. 縮小フェーズ
         timer = 0f;
         while (timer < currentShrinkTime)
         {
@@ -91,8 +84,8 @@ public class FireController : MonoBehaviour
 
     void DestroyFire()
     {
+        Debug.Log($"FireController: {gameObject.name} がDestroyFireを呼び出しました。消滅します。"); // 追加
         OnFireDestroyed?.Invoke();
-        Debug.Log($"{gameObject.name} が消滅しました。");
         Destroy(gameObject);
     }
 

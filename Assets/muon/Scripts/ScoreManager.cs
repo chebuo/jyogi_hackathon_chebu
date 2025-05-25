@@ -1,46 +1,39 @@
 using UnityEngine;
-using UnityEngine.UI;
+// using UnityEngine.UI; // Textを使わないので不要になる
 
-// 汎用的なスコア管理スクリプト
-// UIテキストにスコアを表示します。
 public class ScoreManager : MonoBehaviour {
-    [Tooltip("スコアを表示するためのText UIコンポーネントをここに設定します。")]
-    public Text scoreText; // スコア表示用のText UI
+    // [Tooltip("スコアを表示するためのText UIコンポーネントをここに設定します。")] // 削除
+    // public Text scoreText; // 削除
     private int score = 0; // 現在のスコア
 
     void Start() {
-        UpdateScoreText(); // ゲーム開始時にスコアを初期表示
+        // UpdateScoreText(); // 削除
     }
 
-    // スコアを加算するメソッド
-    // amount: 加算するスコアの量
     public void AddScore(int amount) {
         score += amount;
-        UpdateScoreText(); // スコア更新後に表示を更新
+        // UpdateScoreText(); // 削除
     }
 
-    // 現在のスコアを取得するメソッド
     public int GetCurrentScore()
     {
         return score;
     }
 
-    // スコアをリセットするメソッド
     public void ResetScore()
     {
         score = 0;
-        UpdateScoreText();
+        // UpdateScoreText(); // 削除
     }
 
-    // スコアの表示を更新する内部メソッド
-    private void UpdateScoreText() {
-        if (scoreText != null)
-        {
-            scoreText.text = "スコア: " + score;
-        }
-        else
-        {
-            Debug.LogWarning("ScoreManager: ScoreTextが設定されていません！");
-        }
-    }
+    // private void UpdateScoreText() { // 削除
+    //     if (scoreText != null)
+    //     {
+    //         scoreText.text = "スコア: " + score;
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("ScoreManager: ScoreTextが設定されていません！");
+    //     }
+    // } // 削除
 }
