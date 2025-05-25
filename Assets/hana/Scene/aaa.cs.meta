@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8f8fe929d5e4096469f8cc0e62f54b88
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - countdownText: {instanceID: 0}
+  - gameplayRootObject: {instanceID: 0}
+  - gameOverPanel: {instanceID: 0}
+  - retryButton: {instanceID: 0}
+  - nextStageButton: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

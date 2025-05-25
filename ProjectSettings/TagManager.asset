@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+
   - HitZone
   - migi
   - hidari
@@ -11,11 +12,21 @@ TagManager:
   - hidarinoenn
   - uenoenn
   - miginoenn
+
+  - chebuhome_0
+  - chebuhome_1
+  - chebuhome_2
+  - chebuhome_3
+  - chebuhome_4
+  - chebuhome_5
+  - chebuhome_6
+  - chebuhome_7
+
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - piece
   - Water
   - UI
   - 
@@ -47,4 +58,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: piece
+    uniqueID: 23404125
+    locked: 0
+  - name: UI
+    uniqueID: 821657019
     locked: 0
